@@ -261,9 +261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b046c6f0dbf080646994e9f67a3f7735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tirePrefabs: {fileID: 199218, guid: 4d72feca3629d3d44b4a65d071adb2d3, type: 2}
-  numberOfTire: 24
-  distanceBetweenTire: 2
+  tilePrefabs: {fileID: 199218, guid: 4d72feca3629d3d44b4a65d071adb2d3, type: 2}
+  numberOfTile: 24
+  distanceBetweenTile: 2
   tilePerRow: 4
 --- !u!4 &2096176472
 Transform:
