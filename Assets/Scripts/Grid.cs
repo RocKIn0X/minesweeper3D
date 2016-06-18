@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Grid : MonoBehaviour {
     public Tile tilePrefabs;
@@ -9,8 +10,8 @@ public class Grid : MonoBehaviour {
     public int numberOfMines;
 
     static Tile[] tilesAll;
-    static ArrayList tilesMined;
-    static ArrayList tilesUnmined;
+    static List<Tile> tilesMined;
+    static List<Tile> tilesUnmined;
 	// Use this for initialization
 	void Start () {
         createTile();
@@ -19,8 +20,8 @@ public class Grid : MonoBehaviour {
     void createTile()
     {
         tilesAll = new Tile[numberOfTile];
-        tilesMined = new ArrayList();
-        tilesUnmined = new ArrayList();
+        tilesMined = new List<Tile>(tilesAll);
+        tilesUnmined = new List<Tile>();
 
         float xOffset = 0;
         float zOffset = 0;
@@ -40,11 +41,15 @@ public class Grid : MonoBehaviour {
 
     void AssignMines()
     {
-        tilesUnmined = tilesAll;
-
         for(int minesAssigned = 0; minesAssigned < numberOfMines; minesAssigned++)
         {
-            
+            Tile currentTile = tilesUnmined[Random.Range(0, tilesUnmined.Capacity)];
+
+            tilesMined.Add(currentTile);
+            tilesUnmined.Remove(currentTile);
+
+            currentTile.GetComponent<Tile>();
+            currentTile.isMined = true;
         }
     }
 }
