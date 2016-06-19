@@ -20,7 +20,7 @@ public class Grid : MonoBehaviour {
     void createTile()
     {
         tilesAll = new Tile[numberOfTile];
-        tilesMined = new List<Tile>(tilesAll);
+        tilesMined = new List<Tile>();
         tilesUnmined = new List<Tile>();
 
         float xOffset = 0;
@@ -43,6 +43,7 @@ public class Grid : MonoBehaviour {
     {
         for(int minesAssigned = 0; minesAssigned < numberOfMines; minesAssigned++)
         {
+            tilesUnmined.InsertRange(0, tilesAll);
             Tile currentTile = tilesUnmined[Random.Range(0, tilesUnmined.Capacity)];
 
             tilesMined.Add(currentTile);
