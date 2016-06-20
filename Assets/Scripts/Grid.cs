@@ -41,10 +41,11 @@ public class Grid : MonoBehaviour {
 
     void AssignMines()
     {
-        for(int minesAssigned = 0; minesAssigned < numberOfMines; minesAssigned++)
+        tilesUnmined.InsertRange(0, tilesAll);
+        for (int minesAssigned = 0; minesAssigned < numberOfMines; minesAssigned++)
         {
-            tilesUnmined.InsertRange(0, tilesAll);
-            Tile currentTile = tilesUnmined[Random.Range(0, tilesUnmined.Capacity)];
+            int rnd = (int)Random.Range(-1, tilesUnmined.Capacity);
+            Tile currentTile = tilesUnmined[rnd];
 
             tilesMined.Add(currentTile);
             tilesUnmined.Remove(currentTile);
