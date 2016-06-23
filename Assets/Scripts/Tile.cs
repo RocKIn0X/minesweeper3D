@@ -5,6 +5,7 @@ public class Tile : MonoBehaviour {
     public bool isMined = false;
     public Material materialIdle;
     public Material materialLightup;
+    public TextMesh displayText;
 
     void OnMouseOver()
     {
