@@ -3,9 +3,11 @@ using System.Collections;
 
 public class Tile : MonoBehaviour {
     public bool isMined = false;
+    public TextMesh displayText;
     public Material materialIdle;
     public Material materialLightup;
-    public TextMesh displayText;
+    public int ID;
+    public int tilesPerRow;
 
     void OnMouseOver()
     {
