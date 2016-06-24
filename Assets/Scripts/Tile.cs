@@ -21,6 +21,8 @@ public class Tile : MonoBehaviour {
     public Tile tileLowerRight;
     public Tile tileLowerLeft;
 
+    public ArrayList adjacentTiles = new ArrayList();
+
     void Start()
     {
         if (inBounds(Grid.tilesAll, ID + tilesPerRow))
@@ -40,6 +42,23 @@ public class Tile : MonoBehaviour {
             tileLowerRight = Grid.tilesAll[ID - tilesPerRow - 1];
         if (inBounds(Grid.tilesAll, ID - tilesPerRow + 1) && ID % tilesPerRow != 0)
             tileLowerLeft = Grid.tilesAll[ID - tilesPerRow + 1];
+
+        if (tileUpper)
+            adjacentTiles.Add(tileUpper);
+        if (tileLower)
+            adjacentTiles.Add(tileLower);
+        if (tileLeft)
+            adjacentTiles.Add(tileLeft);
+        if (tileRight)
+            adjacentTiles.Add(tileRight);
+        if (tileUpperRight)
+            adjacentTiles.Add(tileUpperRight);
+        if (tileUpperLeft)
+            adjacentTiles.Add(tileUpperLeft);
+        if (tileLowerRight)
+            adjacentTiles.Add(tileLowerRight);
+        if (tileLowerLeft)
+            adjacentTiles.Add(tileLowerLeft);
     }
 
     void OnMouseOver()
@@ -54,7 +73,6 @@ public class Tile : MonoBehaviour {
 
     bool inBounds(Tile[] inputList, int targetID)
     {
-        throw new NotImplementedException();
         if (targetID < 0 || targetID >= inputList.Length)
             return false;
         else
