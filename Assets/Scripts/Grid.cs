@@ -9,9 +9,9 @@ public class Grid : MonoBehaviour {
     public int tilePerRow = 4;
     public int numberOfMines;
 
-    static Tile[] tilesAll;
-    static List<Tile> tilesMined;
-    static List<Tile> tilesUnmined;
+    public static Tile[] tilesAll; //The default protection level for javascript is public, but it's private in c#
+    public static List<Tile> tilesMined;
+    public static List<Tile> tilesUnmined;
 	// Use this for initialization
 	void Start () {
         createTile();
@@ -34,8 +34,10 @@ public class Grid : MonoBehaviour {
                 xOffset = 0;
             }
             Tile newTile = (Tile) Instantiate(tilePrefabs, new Vector3(transform.position.x + xOffset, transform.position.y, transform.position.z + zOffset), transform.rotation);
+
             newTile.ID = createdTile;
             newTile.tilesPerRow = tilePerRow;
+
             tilesAll[createdTile] = newTile;
         }
         AssignMines();
