@@ -2,12 +2,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 public class Tile : MonoBehaviour {
     public bool isMined = false;
     public TextMesh displayText;
+    public GameObject displayFlag;
+
     public Material materialIdle;
     public Material materialLightup;
+
     public int ID;
     public int tilesPerRow;
 
@@ -21,10 +25,16 @@ public class Tile : MonoBehaviour {
     public Tile tileLowerRight;
     public Tile tileLowerLeft;
 
-    public ArrayList adjacentTiles = new ArrayList();
+    public List<Tile> adjacentTiles = new List<Tile>();
+
+    public int adjacentMines = 0;
+
+    public String state = "Idle";
 
     void Start()
     {
+        gameObject.name = "Tile" + ID.ToString();
+
         if (inBounds(Grid.tilesAll, ID + tilesPerRow))
             tileUpper = Grid.tilesAll[ID + tilesPerRow];
         if (inBounds(Grid.tilesAll, ID - tilesPerRow))
@@ -59,11 +69,34 @@ public class Tile : MonoBehaviour {
             adjacentTiles.Add(tileLowerRight);
         if (tileLowerLeft)
             adjacentTiles.Add(tileLowerLeft);
+
+        CountMines();
+
+        displayText.GetComponent<Renderer>().enabled = false;
+        displayFlag.GetComponent<Renderer>().enabled = false;
+
+    }
+
+    void Update()
+    {
+
     }
 
     void OnMouseOver()
     {
         GetComponent<Renderer>().material = materialLightup;
+        if (state == "idle")
+        {
+            if (Input.GetMouseButtonDown(1))
+                Debug.Log("Hello");
+                SetFlag();
+        }
+        else if (state == "flagged")
+        {
+            if (Input.GetMouseButtonDown(1))
+                Debug.Log("Hello");
+            SetFlag();
+        }
     }
 
     void OnMouseExit()
@@ -77,5 +110,36 @@ public class Tile : MonoBehaviour {
             return false;
         else
             return true;
+    }
+
+    void CountMines()
+    {
+        adjacentMines = 0;
+
+        foreach(Tile currentTile in adjacentTiles) //arrayList can't use in foreach
+        {
+            if (currentTile.isMined)
+                adjacentMines += 1;
+        }
+
+        displayText.text = adjacentMines.ToString();
+
+        if (adjacentMines <= 0)
+            displayText.text = "";
+    }
+
+    void SetFlag()
+    {
+        if(state == "idle")
+        {
+            state = "flagged";
+            displayFlag.GetComponent<Renderer>().enabled = true;
+        }
+
+        else if(state == "flagged")
+        {
+            state = "idle";
+            displayFlag.GetComponent<Renderer>().enabled = false;
+        }
     }
 }
