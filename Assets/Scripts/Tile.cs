@@ -29,7 +29,7 @@ public class Tile : MonoBehaviour {
 
     public int adjacentMines = 0;
 
-    public String state = "Idle";
+    public String state = "Idle"; //Unity always changes your first letter to Capital letter
 
     void Start()
     {
@@ -77,25 +77,22 @@ public class Tile : MonoBehaviour {
 
     }
 
-    void Update()
-    {
-
-    }
-
     void OnMouseOver()
     {
         GetComponent<Renderer>().material = materialLightup;
-        if (state == "idle")
+        if (state == "Idle")
         {
             if (Input.GetMouseButtonDown(1))
-                Debug.Log("Hello");
+            {
                 SetFlag();
+            }
         }
-        else if (state == "flagged")
+        else if (state == "Flagged")
         {
             if (Input.GetMouseButtonDown(1))
-                Debug.Log("Hello");
-            SetFlag();
+            {
+                SetFlag();
+            }
         }
     }
 
@@ -130,15 +127,15 @@ public class Tile : MonoBehaviour {
 
     void SetFlag()
     {
-        if(state == "idle")
+        if(state == "Idle")
         {
-            state = "flagged";
+            state = "Flagged";
             displayFlag.GetComponent<Renderer>().enabled = true;
         }
 
-        else if(state == "flagged")
+        else if(state == "Flagged")
         {
-            state = "idle";
+            state = "Idle";
             displayFlag.GetComponent<Renderer>().enabled = false;
         }
     }

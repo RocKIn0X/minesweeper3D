@@ -16,7 +16,7 @@ public class Grid : MonoBehaviour {
 	void Start () {
         createTile();
 	}
-	
+
     void createTile()
     {
         tilesAll = new Tile[numberOfTile];
