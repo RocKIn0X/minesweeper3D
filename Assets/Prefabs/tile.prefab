@@ -235,6 +235,7 @@ MonoBehaviour:
   displayFlag: {fileID: 199316}
   materialIdle: {fileID: 2100000, guid: 1ada8d8904ce4f34081b98e657bb97bd, type: 2}
   materialLightup: {fileID: 2100000, guid: c2437443ee9c9264796f92682e6ffe99, type: 2}
+  materialUncovered: {fileID: 2100000, guid: 6ec09e05362a6bc43ba5924b17bf981a, type: 2}
   ID: 9
   tilesPerRow: 0
   tileUpper: {fileID: 0}

@@ -11,6 +11,7 @@ public class Tile : MonoBehaviour {
 
     public Material materialIdle;
     public Material materialLightup;
+    public Material materialUncovered;
 
     public int ID;
     public int tilesPerRow;
@@ -82,6 +83,11 @@ public class Tile : MonoBehaviour {
         GetComponent<Renderer>().material = materialLightup;
         if (state == "Idle")
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                UncoverTile();
+            }
+
             if (Input.GetMouseButtonDown(1))
             {
                 SetFlag();
@@ -138,5 +144,17 @@ public class Tile : MonoBehaviour {
             state = "Idle";
             displayFlag.GetComponent<Renderer>().enabled = false;
         }
+    }
+
+    void UncoverTile()
+    {
+        if (!isMined)
+        {
+            state = "uncovered";
+            displayText.GetComponent<Renderer>().enabled = true;
+            materialIdle = materialUncovered;
+        }
+        //else
+            //Explode();
     }
 }
