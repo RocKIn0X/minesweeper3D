@@ -49,10 +49,10 @@ public class Tile : MonoBehaviour {
             tileUpperRight = Grid.tilesAll[ID + tilesPerRow + 1];
         if (inBounds(Grid.tilesAll, ID + tilesPerRow - 1) && ID % tilesPerRow != 0)
             tileUpperLeft = Grid.tilesAll[ID + tilesPerRow - 1];
-        if (inBounds(Grid.tilesAll, ID - tilesPerRow - 1) && (ID + 1) % tilesPerRow != 0)
-            tileLowerRight = Grid.tilesAll[ID - tilesPerRow - 1];
-        if (inBounds(Grid.tilesAll, ID - tilesPerRow + 1) && ID % tilesPerRow != 0)
-            tileLowerLeft = Grid.tilesAll[ID - tilesPerRow + 1];
+        if (inBounds(Grid.tilesAll, ID - tilesPerRow + 1) && (ID + 1) % tilesPerRow != 0)
+            tileLowerRight = Grid.tilesAll[ID - tilesPerRow + 1];
+        if (inBounds(Grid.tilesAll, ID - tilesPerRow - 1) && ID % tilesPerRow != 0)
+            tileLowerLeft = Grid.tilesAll[ID - tilesPerRow - 1];
 
         if (tileUpper)
             adjacentTiles.Add(tileUpper);
@@ -80,31 +80,29 @@ public class Tile : MonoBehaviour {
 
     void OnMouseOver()
     {
-        GetComponent<Renderer>().material = materialLightup;
         if (state == "Idle")
         {
+            GetComponent<Renderer>().material = materialLightup;
+
             if (Input.GetMouseButtonDown(0))
-            {
                 UncoverTile();
-            }
 
             if (Input.GetMouseButtonDown(1))
-            {
                 SetFlag();
-            }
         }
         else if (state == "Flagged")
         {
+            GetComponent<Renderer>().material = materialLightup;
+
             if (Input.GetMouseButtonDown(1))
-            {
                 SetFlag();
-            }
         }
     }
 
     void OnMouseExit()
     {
-        GetComponent<Renderer>().material = materialIdle;
+        if(state == "Idle" || state == "Flagged")
+            GetComponent<Renderer>().material = materialIdle;
     }
 
     bool inBounds(Tile[] inputList, int targetID)
@@ -152,7 +150,7 @@ public class Tile : MonoBehaviour {
         {
             state = "uncovered";
             displayText.GetComponent<Renderer>().enabled = true;
-            materialIdle = materialUncovered;
+            GetComponent<Renderer>().material = materialUncovered;
         }
         //else
             //Explode();
