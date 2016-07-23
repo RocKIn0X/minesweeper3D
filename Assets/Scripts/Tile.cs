@@ -151,8 +151,32 @@ public class Tile : MonoBehaviour {
             state = "uncovered";
             displayText.GetComponent<Renderer>().enabled = true;
             GetComponent<Renderer>().material = materialUncovered;
+
+            if (adjacentMines == 0)
+                UncoverAdjacentTiles();
         }
         //else
             //Explode();
+    }
+
+    private void UncoverAdjacentTiles()
+    {
+        foreach(Tile currentTile in adjacentTiles)
+        {
+            //Uncover all adjacent nodes with 0 adjacent mines
+            if (!currentTile.isMined && currentTile.state == "Idle" && currentTile.adjacentMines == 0)
+                currentTile.UncoverTile();
+
+            //Uncover all adjacent nodes with more than 1 adjacent mines, then stop uncovering
+            else if (!currentTile.isMined && currentTile.state == "Idle" && currentTile.adjacentMines > 0)
+                currentTile.UncoverTileExternal();
+        }
+    }
+
+    public void UncoverTileExternal()
+    {
+        state = "uncovered";
+        displayText.GetComponent<Renderer>().enabled = true;
+        GetComponent<Renderer>().material = materialUncovered;
     }
 }
