@@ -12,6 +12,7 @@ public class Tile : MonoBehaviour {
     public Material materialIdle;
     public Material materialLightup;
     public Material materialUncovered;
+    public Material materialDetonated;
 
     public int ID;
     public int tilesPerRow;
@@ -155,8 +156,8 @@ public class Tile : MonoBehaviour {
             if (adjacentMines == 0)
                 UncoverAdjacentTiles();
         }
-        //else
-            //Explode();
+        else
+            Explode();
     }
 
     private void UncoverAdjacentTiles()
@@ -178,5 +179,22 @@ public class Tile : MonoBehaviour {
         state = "uncovered";
         displayText.GetComponent<Renderer>().enabled = true;
         GetComponent<Renderer>().material = materialUncovered;
+    }
+
+    public void Explode()
+    {
+        state = "detonated";
+        GetComponent<Renderer>().material = materialDetonated;
+
+        foreach(Tile currentTile in Grid.tilesMined)
+        {
+            currentTile.ExplodeExternal();
+        }
+    }
+
+    public void ExplodeExternal()
+    {
+        state = "detonated";
+        GetComponent<Renderer>().material = materialDetonated;
     }
 }
