@@ -12,10 +12,17 @@ public class Grid : MonoBehaviour {
     public static Tile[] tilesAll; //The default protection level for javascript is public, but it's private in c#
     public static List<Tile> tilesMined;
     public static List<Tile> tilesUnmined;
-	// Use this for initialization
+
+    public static string state = "inGame";
+
 	void Start () {
         createTile();
 	}
+
+    void OnGUI()
+    {
+        GUI.Box(new Rect(10, 10, 100, 50), state);
+    }
 
     void createTile()
     {

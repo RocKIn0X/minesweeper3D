@@ -81,29 +81,35 @@ public class Tile : MonoBehaviour {
 
     void OnMouseOver()
     {
-        if (state == "Idle")
+        if (Grid.state == "inGame")
         {
-            GetComponent<Renderer>().material = materialLightup;
+            if (state == "Idle")
+            {
+                GetComponent<Renderer>().material = materialLightup;
 
-            if (Input.GetMouseButtonDown(0))
-                UncoverTile();
+                if (Input.GetMouseButtonDown(0))
+                    UncoverTile();
 
-            if (Input.GetMouseButtonDown(1))
-                SetFlag();
-        }
-        else if (state == "Flagged")
-        {
-            GetComponent<Renderer>().material = materialLightup;
+                if (Input.GetMouseButtonDown(1))
+                    SetFlag();
+            }
+            else if (state == "Flagged")
+            {
+                GetComponent<Renderer>().material = materialLightup;
 
-            if (Input.GetMouseButtonDown(1))
-                SetFlag();
+                if (Input.GetMouseButtonDown(1))
+                    SetFlag();
+            }
         }
     }
 
     void OnMouseExit()
     {
-        if(state == "Idle" || state == "Flagged")
-            GetComponent<Renderer>().material = materialIdle;
+        if (Grid.state == "inGame")
+        {
+            if (state == "Idle" || state == "Flagged")
+                GetComponent<Renderer>().material = materialIdle;
+        }
     }
 
     bool inBounds(Tile[] inputList, int targetID)
