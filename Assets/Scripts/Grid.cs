@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Grid : MonoBehaviour {
     public Tile tilePrefabs;
@@ -55,7 +56,30 @@ public class Grid : MonoBehaviour {
 
     void OnGUI()
     {
-        GUI.Box(new Rect(10, 10, 100, 50), state);
+        if(state == "inGame")
+        {
+            GUI.Box(new Rect(10, 10, 200, 50), "Mines left: " + minesRemaining);
+        }
+        else if(state == "gameOver")
+        {
+            GUI.Box(new Rect(10, 10, 200, 50), "You lose!!!");
+
+            if (GUI.Button(new Rect(10, 70, 200, 50), "Restart"))
+                Restart();
+        }
+        else if(state == "gameWon")
+        {
+            GUI.Box(new Rect(10, 10, 200, 50), "Awesome! You win.");
+
+            if (GUI.Button(new Rect(10, 70, 200, 50), "Restart"))
+                Restart();
+        }
+    }
+
+    public void Restart()
+    {
+        state = "loading";
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void createTile()

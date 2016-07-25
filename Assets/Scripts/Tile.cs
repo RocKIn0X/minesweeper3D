@@ -142,12 +142,18 @@ public class Tile : MonoBehaviour {
         {
             state = "Flagged";
             displayFlag.GetComponent<Renderer>().enabled = true;
+            Grid.minesRemaining -= 1;
+            if (isMined)
+                Grid.minesMarkedCorrectly += 1;
         }
 
         else if(state == "Flagged")
         {
             state = "Idle";
             displayFlag.GetComponent<Renderer>().enabled = false;
+            Grid.minesRemaining += 1;
+            if (isMined)
+                Grid.minesMarkedCorrectly -= 1;
         }
     }
 
@@ -158,6 +164,8 @@ public class Tile : MonoBehaviour {
             state = "uncovered";
             displayText.GetComponent<Renderer>().enabled = true;
             GetComponent<Renderer>().material = materialUncovered;
+
+            Grid.tilesUncovered += 1;
 
             if (adjacentMines == 0)
                 UncoverAdjacentTiles();
@@ -185,11 +193,13 @@ public class Tile : MonoBehaviour {
         state = "uncovered";
         displayText.GetComponent<Renderer>().enabled = true;
         GetComponent<Renderer>().material = materialUncovered;
+        Grid.tilesUncovered += 1;
     }
 
     public void Explode()
     {
         state = "detonated";
+        Grid.state = "gameOver";
         GetComponent<Renderer>().material = materialDetonated;
 
         foreach(Tile currentTile in Grid.tilesMined)
