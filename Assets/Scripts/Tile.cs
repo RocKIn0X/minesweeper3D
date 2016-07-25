@@ -136,7 +136,7 @@ public class Tile : MonoBehaviour {
             displayText.text = "";
     }
 
-    void SetFlag()
+    public void SetFlag()
     {
         if(state == "Idle")
         {

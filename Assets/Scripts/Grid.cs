@@ -15,9 +15,43 @@ public class Grid : MonoBehaviour {
 
     public static string state = "inGame";
 
+    public static int minesMarkedCorrectly = 0;
+    public static int tilesUncovered = 0;
+    public static int minesRemaining = 0;
+
 	void Start () {
         createTile();
+
+        minesRemaining = numberOfMines;
+        minesMarkedCorrectly = 0;
+        tilesUncovered = 0;
+
+        state = "inGame";
 	}
+
+    void Update()
+    {
+        if(state == "inGame")
+        {
+            if ((minesRemaining == 0 && minesMarkedCorrectly == numberOfMines) || (tilesUncovered == numberOfTile - numberOfMines))
+                FinishGame();
+        }
+    }
+
+    void FinishGame()
+    {
+        state = "gameWon";
+
+        //Uncovers remaining fields if all nodes have been placed
+        foreach (Tile currentTile in tilesAll)
+            if (currentTile.state == "Idle" && !currentTile.isMined)
+                currentTile.UncoverTileExternal();
+
+        //Mark remaining mines if all nodes except the mines have been uncovered
+        foreach (Tile currenTile in tilesMined)
+            if (currenTile.state != "Flagged")
+                currenTile.SetFlag();
+    }
 
     void OnGUI()
     {
